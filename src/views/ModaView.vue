@@ -1,7 +1,12 @@
 <template>
     <div class="container-fluid">
       <div class="row">
-        <div v-for="creation in creations" :key="creation.creation_id" class="col-md-3">
+        <div style="text-align: center;" id="sortaric">
+          <button class="btn btn-danger" @click="setSorting('author')">Sortiraj po autoru {{ sortOptions.sortBy === 'author' ? (sortOptions.sortDirection === 'asc' ? '↑' : '↓') : '' }}</button>
+          <button class="btn btn-danger" @click="setSorting('name')">Sortiraj po umetnini {{ sortOptions.sortBy === 'name' ? (sortOptions.sortDirection === 'asc' ? '↑' : '↓') : '' }}</button>
+          <button class="btn btn-danger" @click="resetSorting()">Vrati na podrazumevano</button>
+        </div>
+        <div v-for="creation in displayedCreations" :key="creation.creation_id" class="col-md-3">
           <div class="card md-3" style="max-width: 500px;">
               <div class="row">
                   <div class="col-sm-4">
@@ -10,6 +15,7 @@
                   <div class="col-sm-8">
                       <div class="card-body">
                           <h5 class="card-title">{{ creation.creation_name }}</h5>
+                          <h6 class="card-title" style="font-style: italic; color: purple;">{{ creation.creation_author }}</h6>
                           <p class="card-text">{{ creation.creation_short_description }}</p>
                           <a :href="'/kreacija/'+creation.creation_id" class="btn btn-outline-danger">Posetite stranicu modne kreacije</a>
                       </div>
@@ -20,6 +26,7 @@
       </div>
     </div>
   </template>
+
   <style scoped>
       .container-fluid{
           width: 1920px;
@@ -37,14 +44,66 @@
           width: 130%;
           height: 200px;
       }
+
+      #sortaric {
+        margin-top: 10px;
+        padding: 10px;
+      }
+
+      #sortaric > button {
+        margin: 1px;
+      }
   </style>
+  
   <script>
   import allCreations from '../data/allCreations.js'
   export default {
+    name: "ModaView",
     data() {
       return {
-        creations: allCreations
+        creations: allCreations,
+        sortOptions: {
+          sortBy: "",
+          sortDirection: "asc"
+        }
       };
+    },
+    computed: {
+      sortedCreations() {
+        const { sortBy, sortDirection } = this.sortOptions;
+        const sortedArray = [...this.creations];
+        if (sortBy === "author") {
+          sortedArray.sort((a, b) => {
+            const nameA = a.creation_author.toLowerCase();
+            const nameB = b.creation_author.toLowerCase();
+            return sortDirection === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+          });
+        } else if (sortBy === "name") {
+          sortedArray.sort((a, b) => {
+            const nameA = a.creation_name.toLowerCase();
+            const nameB = b.creation_name.toLowerCase();
+            return sortDirection === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+          });
+        }
+        return sortedArray;
+      },
+      displayedCreations() {
+        return this.sortOptions.sortBy ? this.sortedCreations : this.creations;
+      }
+    },
+    methods: {
+      setSorting(sortBy) {
+        if (this.sortOptions.sortBy === sortBy) {
+          this.sortOptions.sortDirection = this.sortOptions.sortDirection === "asc" ? "desc" : "asc";
+        } else {
+          this.sortOptions.sortBy = sortBy;
+          this.sortOptions.sortDirection = "asc";
+        }
+      },
+      resetSorting() {
+        this.sortOptions.sortBy = '';
+        this.sortOptions.sortDirection = 'asc';
+      }
     }
   };
   </script>

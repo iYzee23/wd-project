@@ -1,11 +1,12 @@
 <template>
   <div>
     <nav id="main">
-      <router-link to="/">Početna</router-link> |
-      <router-link to="/onama">O nama</router-link> |&emsp;
       <router-link to="/">
         <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/')">
-      </router-link>&emsp; |
+      </router-link>&emsp; 
+      <router-link to="/">Početna</router-link> |
+      <router-link to="/onama">O nama</router-link>&emsp;
+      <PretragaComponent></PretragaComponent>&emsp;
       <router-link to="/umetnici">Umetnici</router-link> |
       <div class="dropdown">
         <span class="dropdown-label">Umetnine</span>
@@ -106,3 +107,14 @@
   }
 
 </style>
+
+<script>
+import PretragaComponent from './components/PretragaComponent.vue'
+
+export default {
+  name: "App",
+  components: {
+    PretragaComponent
+  }
+}
+</script>

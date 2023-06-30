@@ -20,6 +20,7 @@
     </div>
   </div>
 </template>
+
 <style scoped>
     .container-fluid{
         width: 1920px;
@@ -38,6 +39,7 @@
         height: 200px;
     }
 </style>
+
 <script>
 import allArtists from '../data/allArtists.js'
 export default {

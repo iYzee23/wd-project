@@ -207,8 +207,7 @@ export default {
           { id: 7, userId: 'user456', content: 'Comment 7' },
           { id: 8, userId: 'user456', content: 'Comment 8' },
           { id: 9, userId: 'user456', content: 'Comment 9' },
-          { id: 10, userId: 'user456', content: 'Comment A' },
-          // ... more comments
+          { id: 10, userId: 'user456', content: 'Comment A' }
         ];
         const fetchedComments2 = [
           { id: 1, userId: 'user123', content: 'Comment 1' },
@@ -220,8 +219,7 @@ export default {
           { id: 7, userId: 'user456', content: 'Comment 7' },
           { id: 8, userId: 'user456', content: 'Comment 8' },
           { id: 9, userId: 'user456', content: 'Comment 9' },
-          { id: 10, userId: 'user456', content: 'Comment A' },
-          // ... more comments
+          { id: 10, userId: 'user456', content: 'Comment A' }
         ];
         const fetchedComments3 = [
           { id: 1, userId: 'user123', content: 'Comment 1' },
@@ -233,8 +231,7 @@ export default {
           { id: 7, userId: 'user456', content: 'Comment 7' },
           { id: 8, userId: 'user456', content: 'Comment 8' },
           { id: 9, userId: 'user456', content: 'Comment 9' },
-          { id: 10, userId: 'user456', content: 'Comment A' },
-          // ... more comments
+          { id: 10, userId: 'user456', content: 'Comment A' }
         ];
         const fetchedComments4 = [
           { id: 1, userId: 'user123', content: 'Comment 1' },
@@ -246,11 +243,10 @@ export default {
           { id: 7, userId: 'user456', content: 'Comment 7' },
           { id: 8, userId: 'user456', content: 'Comment 8' },
           { id: 9, userId: 'user456', content: 'Comment 9' },
-          { id: 10, userId: 'user456', content: 'Comment A' },
-          // ... more comments
+          { id: 10, userId: 'user456', content: 'Comment A' }
         ];
         let artistId=Number(this.$route.params.id);
-        switch (artistId) {
+        switch (artistId % 4 + 1) {
             case 1:
                 this.comments = fetchedComments1;
                 break;

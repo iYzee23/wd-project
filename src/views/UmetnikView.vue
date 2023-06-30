@@ -75,6 +75,7 @@
     </div>
     
 </template>
+
 <style scoped>
     .container{
         display: flex;
@@ -155,7 +156,13 @@
     .breadcrumb{
         text-align: center;
     }
+
+    img {
+      width: 250px;
+      height: 350px;
+    }
 </style>
+
 <script>
 import allArtists from '../data/allArtists.js'
 import jsPDF from 'jspdf'
@@ -166,7 +173,7 @@ export default {
       comments: [], 
       commentContent:'',
       loggedInUserId: 'user123',
-      artists:allArtists,
+      artists: allArtists,
       pdfURL: '../data/example.pdf',
     };
   },
@@ -182,7 +189,7 @@ export default {
   methods: {
     downloadPDF(){
         var pdf=new jsPDF();
-        pdf.text('Kurac picka govno sisa',10,10)
+        pdf.text('Kurac picka govno sisa', 10, 10)
         pdf.save('info.pdf')
     },
     fetchComments() {

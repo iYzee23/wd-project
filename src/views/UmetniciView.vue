@@ -35,6 +35,7 @@
     }
     .card-img{
         width: 150px;
+        height: 200px;
     }
 </style>
 <script>

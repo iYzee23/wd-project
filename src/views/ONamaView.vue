@@ -21,13 +21,13 @@
         <div class="row">
             <div class="col-sm-12">
                 <p class="footer">
-                    ©copyright 2023
+                    © Copyright 2023
                     <br>
-                    Authors: pp200023d, nl200370d
+                    Autori: Predrag Pešić, Luka Nevajda
                     <br>
-                    Univeriztet u Beogradu
+                    Odsek za softversko inženjerstvo
                     <br>
-                    Elektrotehnički fakultet
+                    Elektrotehnički fakultet Univerziteta u Beogradu
                 </p>
             </div>
         </div>

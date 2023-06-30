@@ -63,9 +63,11 @@
                     </div>
                     <div id="ponudaContainer" class="ponuda-container" ref="ponudaContainer">
                         <div class="ponuda" v-for="ponuda in ponude" :key="ponuda.id">
-                            <p>{{ponuda.userId}}
-                            <br>
-                            {{ ponuda.content }}</p>
+                            <p>
+                                Korisnik: <b>{{ ponuda.userId }}</b><br>
+                                Vrednost: <b>{{ ponuda.content }}</b><br>
+                                Vreme: <b>{{ formattedDate(ponuda.datetime) }}</b>
+                            </p>
                             <button type="button" class="btn-close" aria-label="Close" v-if="ponuda.userId === loggedInUserId" @click="deletePonuda(ponuda.id)"></button>
                         </div>
                     </div>
@@ -223,59 +225,69 @@ export default {
     this.fetchPonude();
   },
   methods: {
+    formattedDate(datetime) {
+        if (typeof datetime === 'string') datetime = new Date(datetime);
+        const day = String(datetime.getDay()).padStart(2, '0');
+        const month = String(datetime.getMonth() + 1).padStart(2, '0');
+        const year = datetime.getFullYear();
+        const hours = String(datetime.getHours()).padStart(2, '0');
+        const minutes = String(datetime.getMinutes()).padStart(2, '0');
+        const seconds = String(datetime.getSeconds()).padStart(2, '0');
+        return `${day}.${month}.${year} [${hours}:${minutes}:${seconds}]`;
+    },
     fetchPonude() {
-      const storedPonude = localStorage.getItem('ponude/slika' + this.$route.params.id);
+      const storedPonude = localStorage.getItem('ponude/kreacija' + this.$route.params.id);
       if (storedPonude) {
         this.ponude = JSON.parse(storedPonude);
       } 
       else {
         const fetchedPonude1 = [
-          { id: 1, userId: 'user123', content: 'Ponuda 1' },
-          { id: 2, userId: 'user456', content: 'Ponuda 2' },
-          { id: 3, userId: 'user123', content: 'Ponuda 3' },
-          { id: 4, userId: 'user456', content: 'Ponuda 4' },
-          { id: 5, userId: 'user456', content: 'Ponuda 5' },
-          { id: 6, userId: 'user456', content: 'Ponuda 6' },
-          { id: 7, userId: 'user456', content: 'Ponuda 7' },
-          { id: 8, userId: 'user456', content: 'Ponuda 8' },
-          { id: 9, userId: 'user456', content: 'Ponuda 9' },
-          { id: 10, userId: 'user456', content: 'Ponuda A' }
+            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-29T15:45:00') },
+            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
+            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
+            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
+            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
+            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
+            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
+            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
+            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
         ];
         const fetchedPonude2 = [
-          { id: 1, userId: 'user123', content: 'Ponuda 1' },
-          { id: 2, userId: 'user456', content: 'Ponuda 2' },
-          { id: 3, userId: 'user123', content: 'Ponuda 3' },
-          { id: 4, userId: 'user456', content: 'Ponuda 4' },
-          { id: 5, userId: 'user456', content: 'Ponuda 5' },
-          { id: 6, userId: 'user456', content: 'Ponuda 6' },
-          { id: 7, userId: 'user456', content: 'Ponuda 7' },
-          { id: 8, userId: 'user456', content: 'Ponuda 8' },
-          { id: 9, userId: 'user456', content: 'Ponuda 9' },
-          { id: 10, userId: 'user456', content: 'Ponuda A' }
+            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
+            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
+            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
+            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
+            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
+            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
+            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
+            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
+            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
         ];
         const fetchedPonude3 = [
-          { id: 1, userId: 'user123', content: 'Ponuda 1' },
-          { id: 2, userId: 'user456', content: 'Ponuda 2' },
-          { id: 3, userId: 'user123', content: 'Ponuda 3' },
-          { id: 4, userId: 'user456', content: 'Ponuda 4' },
-          { id: 5, userId: 'user456', content: 'Ponuda 5' },
-          { id: 6, userId: 'user456', content: 'Ponuda 6' },
-          { id: 7, userId: 'user456', content: 'Ponuda 7' },
-          { id: 8, userId: 'user456', content: 'Ponuda 8' },
-          { id: 9, userId: 'user456', content: 'Ponuda 9' },
-          { id: 10, userId: 'user456', content: 'Ponuda A' }
+            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
+            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
+            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
+            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
+            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
+            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
+            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
+            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
+            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
         ];
         const fetchedPonude4 = [
-          { id: 1, userId: 'user123', content: 'Ponuda 1' },
-          { id: 2, userId: 'user456', content: 'Ponuda 2' },
-          { id: 3, userId: 'user123', content: 'Ponuda 3' },
-          { id: 4, userId: 'user456', content: 'Ponuda 4' },
-          { id: 5, userId: 'user456', content: 'Ponuda 5' },
-          { id: 6, userId: 'user456', content: 'Ponuda 6' },
-          { id: 7, userId: 'user456', content: 'Ponuda 7' },
-          { id: 8, userId: 'user456', content: 'Ponuda 8' },
-          { id: 9, userId: 'user456', content: 'Ponuda 9' },
-          { id: 10, userId: 'user456', content: 'Ponuda A' }
+            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
+            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
+            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
+            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
+            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
+            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
+            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
+            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
+            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
         ];
         let creationId = Number(this.$route.params.id);
         switch (creationId) {
@@ -301,7 +313,7 @@ export default {
       const ponudaIndex = this.ponude.findIndex(ponuda => ponuda.id === ponudaId);
       if (ponudaIndex !== -1) {
         this.ponude.splice(ponudaIndex, 1);
-        localStorage.setItem('ponude/slika' + this.$route.params.id, JSON.stringify(this.ponude));
+        localStorage.setItem('ponude/kreacija' + this.$route.params.id, JSON.stringify(this.ponude));
       }
     },
     openModal() {
@@ -311,17 +323,21 @@ export default {
       this.showModal = false;
     },
     submitPonuda() {
-      let last_id = this.ponude[this.ponude.length - 1].id;
-      const newPonuda = {
-        id: last_id + 1,
-        userId: this.loggedInUserId,
-        content: this.ponudaContent,
-      };
-      this.ponude.push(newPonuda);
-      localStorage.setItem('ponude/slika' + this.$route.params.id, JSON.stringify(this.ponude));
+        let parsedValue = Number(this.ponudaContent);
+        if (!isNaN(parsedValue)) {  
+            let last_id = this.ponude[this.ponude.length - 1].id;
+            const newPonuda = {
+                id: last_id + 1,
+                userId: this.loggedInUserId,
+                content: this.ponudaContent,
+                datetime: new Date()
+            };
+            this.ponude.push(newPonuda);
+            localStorage.setItem('ponude/kreacija' + this.$route.params.id, JSON.stringify(this.ponude));
 
-      this.ponudaContent = '';
-      this.closeModal();
+            this.ponudaContent = '';
+            this.closeModal();
+        }
     }
   }
 };

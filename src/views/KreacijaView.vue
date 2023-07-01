@@ -242,52 +242,52 @@ export default {
       } 
       else {
         const fetchedPonude1 = [
-            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-29T15:45:00') },
-            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
-            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
-            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
-            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
-            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
-            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
-            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
-            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
         ];
         const fetchedPonude2 = [
-            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
-            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
-            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
-            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
-            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
-            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
-            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
-            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
-            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
         ];
         const fetchedPonude3 = [
-            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
-            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
-            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
-            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
-            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
-            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
-            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
-            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
-            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
         ];
         const fetchedPonude4 = [
-            { id: 1, userId: 'user123', content: '500', datetime: new Date('2023-06-28T10:30:00') },
-            { id: 2, userId: 'user456', content: '700', datetime: new Date('2023-06-29T15:45:00') },
-            { id: 3, userId: 'user123', content: '650', datetime: new Date('2023-06-27T09:15:00') },
-            { id: 4, userId: 'user456', content: '620', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user456', content: '840', datetime: new Date('2023-06-25T11:20:00') },
-            { id: 6, userId: 'user456', content: '125', datetime: new Date('2023-06-26T16:10:00') },
-            { id: 7, userId: 'user456', content: '900', datetime: new Date('2023-06-24T13:45:00') },
-            { id: 8, userId: 'user456', content: '950', datetime: new Date('2023-06-23T08:30:00') },
-            { id: 9, userId: 'user456', content: '350', datetime: new Date('2023-06-22T17:00:00') },
-            { id: 10, userId: 'user456', content: '420', datetime: new Date('2023-06-21T12:15:00') }
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
         ];
         let creationId = Number(this.$route.params.id);
         switch (creationId) {

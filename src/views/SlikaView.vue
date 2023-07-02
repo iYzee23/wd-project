@@ -20,7 +20,7 @@
                             <textarea class="textarea" v-model="ponudaContent"></textarea>
                             <br>
                             <button type="submit" class="btn btn-outline-secondary">Postavi</button>
-                            <button type="button" class="btn btn-outline-secondary" @click="closeModal">Zatvori</button>
+                            <button type="button" class="btn btn-outline-secondary" @click="closeModal()">Zatvori</button>
                         </form>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 <div class="right-div">
                     <h2>Ponude</h2>  
                     <div class="button-container">
-                        <button type="button" class="btn btn-outline-secondary" @click="openModal">Postavi ponudu</button>
+                        <button type="button" class="btn btn-outline-secondary" @click="openModal" v-if="loggedInUserId!=''">Postavi ponudu</button>
                     </div>
                     <div id="ponudaContainer" class="ponuda-container" ref="ponudaContainer">
                         <div class="ponuda" v-for="ponuda in ponude" :key="ponuda.id">
@@ -209,7 +209,7 @@ export default {
       showModal: false,
       ponude: [], 
       ponudeContent: '',
-      loggedInUserId: 'user123',
+      loggedInUserId: '',
       images: allImages,
       currArtist: ""
     };
@@ -219,15 +219,17 @@ export default {
         this.image = this.images.find(image => image.image_id == imageId);
         this.currArtist = allArtists.find(art => art.artist_name == this.image.image_author);
         this.showModal = false;
+        this.loggedInUserId=localStorage.getItem('user')
   },
   mounted() {
     this.fetchPonude();
   },
   methods: {
-    formattedDate(datetime) {
-        if (typeof datetime === 'string') datetime = new Date(datetime);
+    formattedDate(datetime) { //OVO JE CUDNO
+        if (datetime == undefined) datetime = new Date()
+        else if (typeof datetime === 'string') datetime = new Date(datetime);
         const day = String(datetime.getDay()).padStart(2, '0');
-        const month = String(datetime.getMonth() + 1).padStart(2, '0');
+        const month = String(datetime.getMonth()+1).padStart(2, '0');
         const year = datetime.getFullYear();
         const hours = String(datetime.getHours()).padStart(2, '0');
         const minutes = String(datetime.getMinutes()).padStart(2, '0');
@@ -235,84 +237,15 @@ export default {
         return `${day}.${month}.${year} [${hours}:${minutes}:${seconds}]`;
     },
     fetchPonude() {
-      const storedPonude = localStorage.getItem('ponude/slika' + this.$route.params.id);
-      if (storedPonude) {
-        this.ponude = JSON.parse(storedPonude);
-      } 
-      else {
-        const fetchedPonude1 = [
-           { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
-            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
-            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
-            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
-            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
-            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
-            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
-            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
-            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
-        ];
-        const fetchedPonude2 = [
-           { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
-            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
-            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
-            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
-            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
-            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
-            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
-            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
-            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
-        ];
-        const fetchedPonude3 = [
-            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
-            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
-            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
-            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
-            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
-            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
-            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
-            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
-            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
-        ]
-        const fetchedPonude4 = [
-            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
-            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
-            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
-            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
-            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
-            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
-            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
-            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
-            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
-            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
-        ];
-        let imageId = Number(this.$route.params.id);
-        switch (imageId) {
-            case 1:
-                this.ponude = fetchedPonude1;
-                break;
-            case 2:
-                this.ponude = fetchedPonude2;
-                break;
-            case 3:
-                this.ponude = fetchedPonude3;
-                break;
-            case 4:
-                this.ponude = fetchedPonude4;
-                break;
-            default:
-                this.ponude = [];
-                break;
-        }
-      }
+      this.ponude =JSON.parse(localStorage.getItem('allOffers')).filter((o)=>{
+        return (o.artwork_id == Number.parseInt(this.$route.params.id) && o.type=='s')
+      });
     },
-    deletePonuda(ponudaId) {
-      const ponudaIndex = this.ponude.findIndex(ponuda => ponuda.id === ponudaId);
+    deletePonuda(ponudaId) { //OVO NE TREBA DA POSTOJI!?
+      const ponudaIndex = this.ponude.findIndex(ponuda => ponuda.id === ponudaId && ponuda.type == 's' );
       if (ponudaIndex !== -1) {
         this.ponude.splice(ponudaIndex, 1);
-        localStorage.setItem('ponude/slika' + this.$route.params.id, JSON.stringify(this.ponude));
+        localStorage.setItem('allOffers', JSON.stringify(this.ponude));
       }
     },
     openModal() {
@@ -324,15 +257,22 @@ export default {
     submitPonuda() {
         let parsedValue = Number(this.ponudaContent);
         if (!isNaN(parsedValue)) {  
-            let last_id = this.ponude[this.ponude.length - 1].id;
+            let tmp = this.ponude.fill((p)=>{
+                return p.type == 's'
+            })
+            let last_id = tmp[tmp.length - 1].id;
             const newPonuda = {
                 id: last_id + 1,
                 userId: this.loggedInUserId,
                 content: this.ponudaContent,
-                datetime: new Date()
+                datetime: new Date(),
+                artwork_id: this.$route.params.id,
+                type: 's'
             };
-            this.ponude.push(newPonuda);
-            localStorage.setItem('ponude/slika' + this.$route.params.id, JSON.stringify(this.ponude));
+            let all = JSON.parse(localStorage.getItem("allOffers"))
+            all.push(newPonuda);
+            this.ponude.push(newPonuda)
+            localStorage.setItem('allOffers', JSON.stringify(all))
 
             this.ponudaContent = '';
             this.closeModal();

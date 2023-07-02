@@ -10,6 +10,7 @@ import ModaView from '../views/ModaView.vue'
 import SlikaView from '../views/SlikaView.vue'
 import SkulpturaView from '../views/SkulpturaView.vue'
 import KreacijaView from '../views/KreacijaView.vue'
+import LoginView from '../views/LoginView.vue'
 
 const routes = [
   {
@@ -66,7 +67,13 @@ const routes = [
     path: '/kreacija/:id',
     name: 'Kreacija',
     component: KreacijaView
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginView
   }
+
 ]
 
 const router = createRouter({

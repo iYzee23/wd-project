@@ -1,0 +1,209 @@
+const fetchedComments1 = [
+          { id: 1, userId: 'user123', content: 'This is comment 1' },
+          { id: 2, userId: 'user456', content: 'dsklfjdlskfjlas 2' },
+          { id: 3, userId: 'user012', content: 'djksfnkadsjnf 3' },
+          { id: 4, userId: 'user456', content: ' dmsf,d.asmf 4' },
+          { id: 5, userId: 'user567', content: 'md,asf.,fma 5' },
+          { id: 6, userId: 'user456', content: 'md,.safm.ds,a 6' },
+          { id: 7, userId: 'user012', content: 'Comd,s.afm.ds,mment 7' },
+          { id: 8, userId: 'user123', content: 'adsnfm,.dsfmn 8' },
+          { id: 9, userId: 'user123', content: 'Commd,sfm.ds,mfent 9' },
+          { id: 10, userId: 'user567', content: 'Commd.,sfment A' }
+        ];
+        const fetchedComments2 = [
+          { id: 1, userId: 'user123', content: 'This is comment 1' },
+          { id: 2, userId: 'user456', content: 'xmvldskcv;ldks 2' },
+          { id: 3, userId: 'user567', content: 'dsknfldsk 3' },
+          { id: 4, userId: 'user456', content: 'sdlkjflkjsd 4' },
+          { id: 5, userId: 'user012', content: 'mdslkfmldskmfsd 5' },
+          { id: 6, userId: 'user456', content: 'smdlfkmdslmfksdl 6' },
+          { id: 7, userId: 'user012', content: 'sdmf;lmsd;fmsd; 7' },
+          { id: 8, userId: 'user456', content: 'sdkf;sdkfdskf; 8' },
+          { id: 9, userId: 'user567', content: 'mdslfkmdslkfm 9' },
+          { id: 10, userId: 'user456', content: 'jskdfdslflsdk A' }
+        ];
+        const fetchedComments3 = [
+          { id: 1, userId: 'user123', content: 'This is comment 1' },
+          { id: 2, userId: 'user456', content: 'msdf;dmsf;ldmsf; 2' },
+          { id: 3, userId: 'user123', content: 'mdsf;dskm;flmds 3' },
+          { id: 4, userId: 'user012', content: 'ds;mf;dlsmf; 4' },
+          { id: 5, userId: 'user456', content: 'jelwfewkjflw 5' },
+          { id: 6, userId: 'user012', content: 'mnsaldkasnld 6' },
+          { id: 7, userId: 'user456', content: 'sdmlcfmlsd 7' },
+          { id: 8, userId: 'user567', content: 'sdnlcmksdmkl 8' },
+          { id: 9, userId: 'user123', content: 'dsm;fkmds;lmf 9' },
+          { id: 10, userId: 'user456', content: 'dl;sf;dslmf;ldsm A' }
+        ];
+        const fetchedComments4 = [
+          { id: 1, userId: 'user012', content: 'This comment 1' },
+          { id: 2, userId: 'user456', content: 'slkfdjdlskjflsdkjf 2' },
+          { id: 3, userId: 'user123', content: 'dslfdlsmflkdsm 3' },
+          { id: 4, userId: 'user567', content: 'dsfnldsnlf 4' },
+          { id: 5, userId: 'user456', content: 'sdnfldsnflsd 5' },
+          { id: 6, userId: 'user567', content: ';ksjdf;plesf;lsd 6' },
+          { id: 7, userId: 'user012', content: 'ds;kfjdsfs 7' },
+          { id: 8, userId: 'user456', content: 'lsdfknldks 8' },
+          { id: 9, userId: 'user123', content: 'ds;d;lmf;ldsm 9' },
+          { id: 10, userId: 'user456', content: 'Csdf;lmsd; A' }
+        ];
+        let artistId=Number(this.$route.params.id);
+        switch (artistId % 4 + 1) {
+            case 1:
+                this.comments = fetchedComments1;
+                break;
+            case 2:
+                this.comments = fetchedComments2;
+                break;
+            case 3:
+                this.comments = fetchedComments3;
+                break;
+            case 4:
+                this.comments = fetchedComments4;
+                break;
+            default:
+                this.comments = [];
+                break;
+            
+        }
+        localStorage.setItem('comments'+this.$route.params.id, JSON.stringify(this.comments))
+
+        ///////////////////////////////
+        SLIKA 
+
+        const fetchedPonude1 = [
+           { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        const fetchedPonude2 = [
+           { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        const fetchedPonude3 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ]
+        const fetchedPonude4 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        let imageId = Number(this.$route.params.id);
+        switch (imageId) {
+            case 1:
+                this.ponude = fetchedPonude1;
+                break;
+            case 2:
+                this.ponude = fetchedPonude2;
+                break;
+            case 3:
+                this.ponude = fetchedPonude3;
+                break;
+            case 4:
+                this.ponude = fetchedPonude4;
+                break;
+            default:
+                this.ponude = [];
+                break;
+        }
+        localStorage.setItem('ponude/slika' + this.$route.params.id, JSON.stringify(this.ponude));
+
+        /////////////////////////////////////////////////////
+        SKULPTURE
+                const fetchedPonude1 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        const fetchedPonude2 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        const fetchedPonude3 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        const fetchedPonude4 = [
+            { id: 1, userId: 'user123', content: '125', datetime: new Date('2023-06-27T10:30:00') },
+            { id: 2, userId: 'user456', content: '350', datetime: new Date('2023-06-28T15:45:00') },
+            { id: 3, userId: 'user567', content: '420', datetime: new Date('2023-06-29T09:15:00') },
+            { id: 4, userId: 'user456', content: '500', datetime: new Date('2023-06-30T14:00:00') },
+            { id: 5, userId: 'user012', content: '620', datetime: new Date('2023-07-01T11:20:00') },
+            { id: 6, userId: 'user567', content: '650', datetime: new Date('2023-07-02T16:10:00') },
+            { id: 7, userId: 'user123', content: '700', datetime: new Date('2023-07-03T13:45:00') },
+            { id: 8, userId: 'user456', content: '840', datetime: new Date('2023-07-04T08:30:00') },
+            { id: 9, userId: 'user567', content: '900', datetime: new Date('2023-07-05T17:00:00') },
+            { id: 10, userId: 'user456', content: '1024', datetime: new Date('2023-07-06T12:15:00') }
+        ];
+        let sculptureId = Number(this.$route.params.id);
+        switch (sculptureId) {
+            case 1:
+                this.ponude = fetchedPonude1;
+                break;
+            case 2:
+                this.ponude = fetchedPonude2;
+                break;
+            case 3:
+                this.ponude = fetchedPonude3;
+                break;
+            case 4:
+                this.ponude = fetchedPonude4;
+                break;
+            default:
+                this.ponude = [];
+                break;
+        }
+        localStorage.setItem('ponude/skulptura' + this.$route.params.id, JSON.stringify(this.ponude));

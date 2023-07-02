@@ -20,7 +20,7 @@
                             <textarea class="textarea" v-model="commentContent"></textarea>
                             <br>
                             <button type="submit" class="btn btn-outline-secondary">Postavi</button>
-                            <button type="button" class="btn btn-outline-secondary" @click="closeModal">Zatvori</button>
+                            <button type="button" class="btn btn-outline-secondary" @click="closeModal()">Zatvori</button>
                         </form>
                     </div>
                 </div>
@@ -40,11 +40,11 @@
                         <div class="col-sm-12">
                             <br><br>
                             <h5><b>Biografija: </b>{{ artist.artist_biography }}</h5>
-                            <br>
                         </div>
                     </div>
                 </div>
                 <div class="left-div down-left">
+                        <br>
                         Za više informacija o umetniku kliknite
                         <a :href="artist.artist_wiki" target="_blank">ovde</a>
                 </div>
@@ -53,10 +53,11 @@
             <div class="right-divs">
                 <div class="right-div">
                     <h2>Komentari</h2>  
-                    <div class="button-container">
+                    <div class="button-container" v-if="loggedInUserId!=''">
                         <button type="button" class="btn btn-outline-secondary" @click="openModal">Postavi komentar</button>
                     </div>
                     <div id="commentContainer" class="comment-container" ref="commentContainer">
+                        <br>
                         <div class="comment" v-for="comment in comments" :key="comment.id">
                             <p>{{comment.userId}}
                             <br>
@@ -82,13 +83,13 @@
     }
     .left-divs {
       flex-grow: 1;
-      width:1000px;
+      width:66%;
       border: 5px solid #C4A484;
       padding: 20px;
-      height:700px;
+      height:100%;
     }
     .left-div{
-        height:630px;
+        height:93%;
     }
     .down-left{
         height:70px;
@@ -98,7 +99,7 @@
       display: flex;
       flex-direction: column;
       flex-grow: 0;
-      width: 500px;
+      width: 34%;
       padding:20px;
     }
     .right-div {
@@ -107,7 +108,7 @@
       border: 5px solid #C4A484;
       text-align: left;
       color:plum;
-      height: 500px;
+      height: 58%;
     }
     .down-right{
         height: 130px;
@@ -117,12 +118,10 @@
         margin-left: 5px;
     }
     .button-container{
-        position: absolute;
-        top: 6px;
-        right: 5px;
+        margin-left: 10px;
     }
     .comment-container{
-        height: 420px;
+        height: 84%;
         overflow-y: auto;
     }
     .comment{
@@ -158,13 +157,15 @@
     }
 
     img {
-      width: 250px;
-      height: 350px;
+      width: 100%
     }
 </style>
 
 <script>
 import allArtists from '../data/allArtists.js'
+import allImages from '../data/allImages.js'
+import allSculptures from '../data/allSculptures.js'
+import allCreations from '../data/allCreations.js'
 import jsPDF from 'jspdf'
 export default {
   data() {
@@ -172,16 +173,19 @@ export default {
       showModal: false,
       comments: [], 
       commentContent:'',
-      loggedInUserId: 'user123',
+      loggedInUserId: '',
       artists: allArtists,
-      pdfURL: '../data/example.pdf',
+      allImages:allImages,
+      allSculptures:allSculptures,
+      allCreations:allCreations
     };
   },
   created(){
         var artistId=Number(this.$route.params.id)
-        console.log(artistId)
+        //console.log(artistId)
         this.artist=this.artists.find(artist=>artist.artist_id==artistId)
         this.showModal=false;
+        this.loggedInUserId=Number(localStorage.getItem('user'))
   },
   mounted() {
     this.fetchComments();
@@ -189,87 +193,38 @@ export default {
   methods: {
     downloadPDF(){
         var pdf=new jsPDF();
-        pdf.text('Kurac picka govno sisa', 10, 10)
-        pdf.save('info.pdf')
+        let cursor=10;
+        for(let i=0;i<allImages.length;i++){
+            if(allImages[i].image_author==this.artist.artist_name){
+                pdf.text(allImages[i].image_name,10,cursor)
+                cursor *= 10
+            }
+        }
+        for(let i=0;i<allSculptures.length;i++){
+            if(allSculptures[i].sculpture_author==this.artist.artist_name){
+                pdf.text(allImages[i].sculpture_name,10,cursor)
+                cursor *= 10
+            }
+        }
+        for(let i=0;i<allCreations.length;i++){
+            if(allCreations[i].creation_author==this.artist.artist_name){
+                pdf.text(allImages[i].creation_name,10,cursor)
+                cursor *= 10
+            }
+        }
+        pdf.save(this.artist.artist_name+'.pdf')
     },
     fetchComments() {
-      const storedComments = localStorage.getItem('comments'+this.$route.params.id);
-      if (storedComments) {
-        this.comments = JSON.parse(storedComments);
-      } else {
-        const fetchedComments1 = [
-          { id: 1, userId: 'user123', content: 'This is comment 1' },
-          { id: 2, userId: 'user456', content: 'dsklfjdlskfjlas 2' },
-          { id: 3, userId: 'user012', content: 'djksfnkadsjnf 3' },
-          { id: 4, userId: 'user456', content: ' dmsf,d.asmf 4' },
-          { id: 5, userId: 'user567', content: 'md,asf.,fma 5' },
-          { id: 6, userId: 'user456', content: 'md,.safm.ds,a 6' },
-          { id: 7, userId: 'user012', content: 'Comd,s.afm.ds,mment 7' },
-          { id: 8, userId: 'user123', content: 'adsnfm,.dsfmn 8' },
-          { id: 9, userId: 'user123', content: 'Commd,sfm.ds,mfent 9' },
-          { id: 10, userId: 'user567', content: 'Commd.,sfment A' }
-        ];
-        const fetchedComments2 = [
-          { id: 1, userId: 'user123', content: 'This is comment 1' },
-          { id: 2, userId: 'user456', content: 'xmvldskcv;ldks 2' },
-          { id: 3, userId: 'user567', content: 'dsknfldsk 3' },
-          { id: 4, userId: 'user456', content: 'sdlkjflkjsd 4' },
-          { id: 5, userId: 'user012', content: 'mdslkfmldskmfsd 5' },
-          { id: 6, userId: 'user456', content: 'smdlfkmdslmfksdl 6' },
-          { id: 7, userId: 'user012', content: 'sdmf;lmsd;fmsd; 7' },
-          { id: 8, userId: 'user456', content: 'sdkf;sdkfdskf; 8' },
-          { id: 9, userId: 'user567', content: 'mdslfkmdslkfm 9' },
-          { id: 10, userId: 'user456', content: 'jskdfdslflsdk A' }
-        ];
-        const fetchedComments3 = [
-          { id: 1, userId: 'user123', content: 'This is comment 1' },
-          { id: 2, userId: 'user456', content: 'msdf;dmsf;ldmsf; 2' },
-          { id: 3, userId: 'user123', content: 'mdsf;dskm;flmds 3' },
-          { id: 4, userId: 'user012', content: 'ds;mf;dlsmf; 4' },
-          { id: 5, userId: 'user456', content: 'jelwfewkjflw 5' },
-          { id: 6, userId: 'user012', content: 'mnsaldkasnld 6' },
-          { id: 7, userId: 'user456', content: 'sdmlcfmlsd 7' },
-          { id: 8, userId: 'user567', content: 'sdnlcmksdmkl 8' },
-          { id: 9, userId: 'user123', content: 'dsm;fkmds;lmf 9' },
-          { id: 10, userId: 'user456', content: 'dl;sf;dslmf;ldsm A' }
-        ];
-        const fetchedComments4 = [
-          { id: 1, userId: 'user012', content: 'This comment 1' },
-          { id: 2, userId: 'user456', content: 'slkfdjdlskjflsdkjf 2' },
-          { id: 3, userId: 'user123', content: 'dslfdlsmflkdsm 3' },
-          { id: 4, userId: 'user567', content: 'dsfnldsnlf 4' },
-          { id: 5, userId: 'user456', content: 'sdnfldsnflsd 5' },
-          { id: 6, userId: 'user567', content: ';ksjdf;plesf;lsd 6' },
-          { id: 7, userId: 'user012', content: 'ds;kfjdsfs 7' },
-          { id: 8, userId: 'user456', content: 'lsdfknldks 8' },
-          { id: 9, userId: 'user123', content: 'ds;d;lmf;ldsm 9' },
-          { id: 10, userId: 'user456', content: 'Csdf;lmsd; A' }
-        ];
-        let artistId=Number(this.$route.params.id);
-        switch (artistId % 4 + 1) {
-            case 1:
-                this.comments = fetchedComments1;
-                break;
-            case 2:
-                this.comments = fetchedComments2;
-                break;
-            case 3:
-                this.comments = fetchedComments3;
-                break;
-            case 4:
-                this.comments = fetchedComments4;
-                break;
-            default:
-                this.comments = [];
-                break;
-        }
-      }
+      this.comments =JSON.parse(localStorage.getItem('allComments')).filter((c)=>{
+        return c.artist_id == Number.parseInt(this.$route.params.id)
+      });
+      
     },
     deleteComment(commentId) {
       const commentIndex = this.comments.findIndex(comment => comment.id === commentId);
       if (commentIndex !== -1) {
         this.comments.splice(commentIndex, 1);
-        localStorage.setItem('comments'+this.$route.params.id, JSON.stringify(this.comments));
+        localStorage.setItem('allComments', JSON.stringify(this.comments));
       }
     },
     openModal() {
@@ -285,9 +240,10 @@ export default {
         id:last_id+1,
         userId:this.loggedInUserId,
         content: this.commentContent,
+        artist_id: Number.parseInt(this.$route.params.id)
       };
       this.comments.push(newComment);
-      localStorage.setItem('comments'+this.$route.params.id, JSON.stringify(this.comments));
+      localStorage.setItem('allComments', JSON.stringify(this.comments));
 
       
       // Ciscenje commentContent

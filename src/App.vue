@@ -4,7 +4,7 @@
       <router-link to="/">
         <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/')">
       </router-link>&emsp; 
-      <router-link to="/">Početna</router-link> |
+      <router-link to="/">Početna - L&P gallery</router-link> |
       <router-link to="/onama">O nama</router-link>&emsp;
       <PretragaComponent></PretragaComponent>&emsp;
       <router-link to="/umetnici">Umetnici</router-link> |

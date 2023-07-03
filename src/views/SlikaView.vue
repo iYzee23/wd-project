@@ -58,8 +58,8 @@
             <div class="right-divs">
                 <div class="right-div">
                     <h2>Ponude</h2>  
-                    <div class="button-container">
-                        <button type="button" class="btn btn-outline-secondary" @click="openModal" v-if="loggedInUserId!=''">Postavi ponudu</button>
+                    <div class="button-container" v-if="loggedInUserId">
+                        <button type="button" class="btn btn-outline-secondary" @click="openModal">Postavi ponudu</button>
                     </div>
                     <div id="ponudaContainer" class="ponuda-container" ref="ponudaContainer">
                         <div class="ponuda" v-for="ponuda in ponude" :key="ponuda.id">
@@ -102,13 +102,13 @@
     }
     .left-divs {
       flex-grow: 1;
-      width:1000px;
+      width:66%;
       border: 5px solid #C4A484;
       padding: 20px;
-      height:700px;
+      height:100%;
     }
     .left-div{
-        height:630px;
+        height:93%;
     }
     .down-left{
         height:70px;
@@ -118,7 +118,7 @@
       display: flex;
       flex-direction: column;
       flex-grow: 0;
-      width: 500px;
+      width: 34%;
       padding:20px;
     }
     .right-div {
@@ -127,7 +127,7 @@
       border: 5px solid #C4A484;
       text-align: left;
       color:plum;
-      height: 300px;
+      height: 24%;
     }
     .down-right{
         height: 350px;
@@ -137,12 +137,11 @@
         margin-left: 5px;
     }
     .button-container{
-        position: absolute;
-        top: 6px;
-        right: 5px;
+        margin-left: 10px;
+        margin-bottom: 10px;
     }
     .ponuda-container{
-        height: 220px;
+        height: 67%;
         overflow-y: auto;
     }
     .ponuda {
@@ -179,7 +178,7 @@
 
     img {
       width: 250px;
-      height: 350px;
+      height: 100%;
     }
 
     .carousel {
@@ -219,19 +218,20 @@ export default {
         this.image = this.images.find(image => image.image_id == imageId);
         this.currArtist = allArtists.find(art => art.artist_name == this.image.image_author);
         this.showModal = false;
-        this.loggedInUserId=localStorage.getItem('user')
+        this.loggedInUserId= localStorage.getItem('user');
   },
   mounted() {
     this.fetchPonude();
+    document.title = 'L&P gallery - Slika';
   },
   methods: {
-    formattedDate(datetime) { //OVO JE CUDNO
+    formattedDate(datetime) {
         if (datetime == undefined) datetime = new Date()
         else if (typeof datetime === 'string') datetime = new Date(datetime);
-        const day = String(datetime.getDay()).padStart(2, '0');
+        const day = String(datetime.getDate()).padStart(2, '0');
         const month = String(datetime.getMonth()+1).padStart(2, '0');
         const year = datetime.getFullYear();
-        const hours = String(datetime.getHours()).padStart(2, '0');
+        const hours = String(datetime.getUTCHours()).padStart(2, '0');
         const minutes = String(datetime.getMinutes()).padStart(2, '0');
         const seconds = String(datetime.getSeconds()).padStart(2, '0');
         return `${day}.${month}.${year} [${hours}:${minutes}:${seconds}]`;
@@ -242,11 +242,14 @@ export default {
       });
     },
     deletePonuda(ponudaId) { //OVO NE TREBA DA POSTOJI!?
-      const ponudaIndex = this.ponude.findIndex(ponuda => ponuda.id === ponudaId && ponuda.type == 's' );
-      if (ponudaIndex !== -1) {
-        this.ponude.splice(ponudaIndex, 1);
-        localStorage.setItem('allOffers', JSON.stringify(this.ponude));
-      }
+        let allOffers = JSON.parse(localStorage.getItem('allOffers'));
+        const ponudaIndex = this.ponude.findIndex(ponuda => ponuda.id === ponudaId && ponuda.type == 's' );
+        const allPonudaIndex = allOffers.findIndex(ponuda => ponuda.id === ponudaId && ponuda.type == 's' );
+        if (ponudaIndex !== -1) {
+            this.ponude.splice(ponudaIndex, 1);
+            allOffers.splice(allPonudaIndex, 1);
+            localStorage.setItem('allOffers', JSON.stringify(allOffers));
+        }
     },
     openModal() {
       this.showModal = true;
@@ -256,24 +259,21 @@ export default {
     },
     submitPonuda() {
         let parsedValue = Number(this.ponudaContent);
-        if (!isNaN(parsedValue)) {  
-            let tmp = this.ponude.fill((p)=>{
-                return p.type == 's'
-            })
-            let last_id = tmp[tmp.length - 1].id;
+        if (!isNaN(parsedValue)) {
+            let allOffers = JSON.parse(localStorage.getItem('allOffers'));
+            let last_id = allOffers[allOffers.length - 1].id;
             const newPonuda = {
                 id: last_id + 1,
                 userId: this.loggedInUserId,
                 content: this.ponudaContent,
                 datetime: new Date(),
-                artwork_id: this.$route.params.id,
+                artwork_id: Number(this.$route.params.id),
                 type: 's'
             };
-            let all = JSON.parse(localStorage.getItem("allOffers"))
-            all.push(newPonuda);
             this.ponude.push(newPonuda)
-            localStorage.setItem('allOffers', JSON.stringify(all))
-
+            allOffers.push(newPonuda);
+            localStorage.setItem('allOffers', JSON.stringify(allOffers));
+            // Ciscenje ponudaContent
             this.ponudaContent = '';
             this.closeModal();
         }

@@ -6,13 +6,13 @@
           <button class="btn btn-danger" @click="setSorting('name')">Sortiraj po umetnini {{ sortOptions.sortBy === 'name' ? (sortOptions.sortDirection === 'asc' ? '↑' : '↓') : '' }}</button>
           <button class="btn btn-danger" @click="resetSorting()">Vrati na podrazumevano</button>
         </div>
-        <div v-for="image in displayedImages" :key="image.image_id" class="col-md-3">
-          <div class="card md-3" style="max-width: 500px;">
+        <div v-for="image in displayedImages" :key="image.image_id" class="col-sm-12 col-md-6 col-lg-3">
+          <div class="card sm-12 md-6 lg-3" style="max-width: 500px;">
               <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-12 col-sm-4">
                       <img :src="'/images/image'+image.image_id+'.jpeg'" class="card-img">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-12 col-sm-8">
                       <div class="card-body">
                           <h5 class="card-title">{{ image.image_name }}</h5>
                           <h6 class="card-title" style="font-style: italic; color: purple;">{{ image.image_author }}</h6>
@@ -29,7 +29,6 @@
 
   <style scoped>
       .container-fluid{
-          width: 1920px;
           text-align: right;
           border: 5px solid #C4A484;
       }
@@ -67,6 +66,9 @@
           sortDirection: "asc"
         }
       };
+    },
+    mounted() {
+      document.title = 'L&P gallery - Slike';
     },
     computed: {
       sortedImages() {

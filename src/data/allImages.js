@@ -22,7 +22,7 @@ const allImages = [
     {
         image_id: 3,
         image_name: 'Prolaz vremena',
-        image_short_description: 'Najpoznatija slika čuvenog španskog umetnika, tvorca iluzionizma.',
+        image_short_description: 'Najpoznatija slika čuvenog španskog umetnika.',
         image_description: '"Prolaz vremena" je slika koju je Salvador Dali naslikao 1931. godine. Ova slika je postala jedno od najpoznatijih dela Dalija i simbolizuje koncept prolaznosti vremena. Na slici se prikazuju meke, rastopljene časovnike koji se nalaze u pejzažu. "Prolaz vremena" je postao ikona nadrealizma, umetničkog pokreta koji istražuje iracionalne i nesvesne elemente ljudske psihe. Slika prikazuje nepomično drveće u pozadini, dok su meki časovnici rastopljeni i savijeni, kao da se tope i gube svoju čvrstinu. Dali je ovom slikom želeo da istakne relativnost vremena i da izrazi ideju da vreme nije apsolutno, već se može doživeti na subjektivan način.',
         image_wiki: 'https://sr.wikipedia.org/wiki/Упорност_сећања',
         image_estimated_price: '$80 miliona',

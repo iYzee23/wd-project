@@ -7,12 +7,12 @@
           <button class="btn btn-danger" @click="resetSorting()">Vrati na podrazumevano</button>
         </div>
         <div v-for="sculpture in displayedSculptures" :key="sculpture.sculpture_id" class="col-md-3">
-          <div class="card md-3" style="max-width: 500px;">
+          <div class="card sm-12 md-6 lg-3" style="max-width: 500px;">
               <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-12 col-sm-4">
                       <img :src="'/images/sculpture'+sculpture.sculpture_id+'.jpeg'" class="card-img">
                   </div>
-                  <div class="col-sm-8">
+                  <div class="col-12 col-sm-8">
                       <div class="card-body">
                           <h5 class="card-title">{{ sculpture.sculpture_name }}</h5>
                           <h6 class="card-title" style="font-style: italic; color: purple;">{{ sculpture.sculpture_author }}</h6>
@@ -67,6 +67,9 @@
           sortDirection: "asc"
         }
       };
+    },
+    mounted() {
+      document.title = 'L&P gallery - Skulpture';
     },
     computed: {
       sortedSculptures() {

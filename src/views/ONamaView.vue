@@ -4,7 +4,7 @@
             <div class="col-sm-12">
                 <br>
                 <h2>O nama</h2>
-                <p> Dobrodošli u LiP, onlajn galeriju umetnosti koja slavi kreativnost i povezuje umetnike sa ljubiteljima umetnosti iz celog sveta. U LiP-u se trudimo da prikažemo raznoliku paletu umetničkih dela u različitim medijima, uključujući slikarstvo, skulpturu, fotografiju i više. Naša platforma pruža jedinstveni prostor talentovanim umetnicima za izložbu njihovih dela, a umetničkim ljubiteljima omogućava da otkriju i prikupe izuzetna umetnička dela. Bili vi umetnik koji traži izlaganje ili ljubitelj umetnosti koji traži inspiraciju, LiP je vaš ulaznica u svet umetnosti. Pridružite nam se na ovom umetničkom putovanju i istražite zahvalni svet LiP-a.</p>
+                <p> Dobrodošli u L&P, onlajn galeriju umetnosti koja slavi kreativnost i povezuje umetnike sa ljubiteljima umetnosti iz celog sveta. U L&P-u se trudimo da prikažemo raznoliku paletu umetničkih dela u različitim medijima, uključujući slikarstvo, skulpturu, fotografiju i više. Naša platforma pruža jedinstveni prostor talentovanim umetnicima za izložbu njihovih dela, a umetničkim ljubiteljima omogućava da otkriju i prikupe izuzetna umetnička dela. Bili vi umetnik koji traži izlaganje ili ljubitelj umetnosti koji traži inspiraciju, L&P je vaš ulaznica u svet umetnosti. Pridružite nam se na ovom umetničkom putovanju i istražite zahvalni svet L&P-a.</p>
             </div>
         </div>
         <div class="row">
@@ -39,3 +39,10 @@
     }
 </style>
 
+<script>
+export default {
+    mounted() {
+        document.title = 'L&P gallery - O nama';
+    }
+}
+</script>

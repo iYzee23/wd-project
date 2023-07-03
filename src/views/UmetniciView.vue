@@ -34,7 +34,7 @@
         color: plum;
     }
     .card-img{
-        width: 150px;
+        width: 130%;
         height: 200px;
     }
 </style>
@@ -46,6 +46,9 @@ export default {
     return {
       artists: allArtists
     };
+  },
+  mounted() {
+    document.title = 'L&P gallery - Umetnici';
   }
 };
 </script>

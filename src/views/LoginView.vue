@@ -60,6 +60,9 @@ export default {
             users:allUsers
         }
     },
+    mounted() {
+        document.title = 'L&P gallery - Login';
+    },
     methods:{
         login(){
             if(this.username=='' || this.password=='')

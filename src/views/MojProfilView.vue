@@ -66,7 +66,7 @@ import allArtists from "@/data/allArtists";
 import allCreations from "@/data/allCreations";
 import allSculptures from "@/data/allSculptures";
 import allImages from "@/data/allImages";
-import jsPDF from 'jspdf';
+
 export default {
   name: "MojProfil",
   data() {
@@ -81,6 +81,9 @@ export default {
       allSculptures:allSculptures,
       allCreations:allCreations
     };
+  },
+  mounted() {
+    document.title = 'L&P gallery - Moj profil';
   },
   created() {
     if (

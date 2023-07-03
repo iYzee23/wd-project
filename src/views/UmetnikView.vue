@@ -53,7 +53,7 @@
             <div class="right-divs">
                 <div class="right-div">
                     <h2>Komentari</h2>  
-                    <div class="button-container" v-if="loggedInUserId!=''">
+                    <div class="button-container" v-if="loggedInUserId">
                         <button type="button" class="btn btn-outline-secondary" @click="openModal">Postavi komentar</button>
                     </div>
                     <div id="commentContainer" class="comment-container" ref="commentContainer">
@@ -108,7 +108,7 @@
       border: 5px solid #C4A484;
       text-align: left;
       color:plum;
-      height: 58%;
+      height: 48%;
     }
     .down-right{
         height: 130px;
@@ -121,7 +121,7 @@
         margin-left: 10px;
     }
     .comment-container{
-        height: 84%;
+        height: 74%;
         overflow-y: auto;
     }
     .comment{
@@ -167,6 +167,7 @@ import allImages from '../data/allImages.js'
 import allSculptures from '../data/allSculptures.js'
 import allCreations from '../data/allCreations.js'
 import jsPDF from 'jspdf'
+
 export default {
   data() {
     return {
@@ -185,10 +186,11 @@ export default {
         //console.log(artistId)
         this.artist=this.artists.find(artist=>artist.artist_id==artistId)
         this.showModal=false;
-        this.loggedInUserId=Number(localStorage.getItem('user'))
+        this.loggedInUserId=localStorage.getItem('user');
   },
   mounted() {
     this.fetchComments();
+    document.title = 'L&P gallery - Umetnik';
   },
   methods: {
     downloadPDF(){
@@ -221,11 +223,14 @@ export default {
       
     },
     deleteComment(commentId) {
-      const commentIndex = this.comments.findIndex(comment => comment.id === commentId);
-      if (commentIndex !== -1) {
-        this.comments.splice(commentIndex, 1);
-        localStorage.setItem('allComments', JSON.stringify(this.comments));
-      }
+        let allComments = JSON.parse(localStorage.getItem('allComments'));
+        const commentIndex = this.comments.findIndex(comment => comment.id === commentId);
+        const allCommentIndex = allComments.findIndex(comment => comment.id === commentId);
+        if (commentIndex !== -1) {
+            this.comments.splice(commentIndex, 1);
+            allComments.splice(allCommentIndex, 1);
+            localStorage.setItem('allComments', JSON.stringify(allComments));
+        }
     },
     openModal() {
       this.showModal = true;
@@ -234,22 +239,20 @@ export default {
       this.showModal = false;
     },
     submitComment() {
-      
-      let last_id = this.comments[this.comments.length - 1].id;
-      const newComment = {
-        id:last_id+1,
-        userId:this.loggedInUserId,
-        content: this.commentContent,
-        artist_id: Number.parseInt(this.$route.params.id)
-      };
-      this.comments.push(newComment);
-      localStorage.setItem('allComments', JSON.stringify(this.comments));
-
-      
-      // Ciscenje commentContent
-      this.commentContent = '';
-
-      this.closeModal();
+        let allComments = JSON.parse(localStorage.getItem('allComments'));
+        let last_id = allComments[allComments.length - 1].id;
+        const newComment = {
+            id:last_id+1,
+            userId:this.loggedInUserId,
+            content: this.commentContent,
+            artist_id: Number.parseInt(this.$route.params.id)
+        };
+        this.comments.push(newComment);
+        allComments.push(newComment);
+        localStorage.setItem('allComments', JSON.stringify(allComments));
+        // Ciscenje commentContent
+        this.commentContent = '';
+        this.closeModal();
     }
   }
 };

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="jezik == 'srpski'">
     <nav id="main">
       <router-link to="/">
         <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/')">
@@ -16,7 +16,8 @@
           <router-link to="/umetnine/moda">Moda</router-link>
         </div>
       </div> |
-      <router-link to="/mojprofil">Moj profil</router-link>
+      <router-link to="/mojprofil">Moj profil</router-link>&emsp;
+      <button class="btn btn-outline-dark" @click="prebaci()">Prebaci na Engleski</button>
     </nav>
     <router-view/>
     <footer>
@@ -27,6 +28,37 @@
       Odsek za softversko inženjerstvo
       <br>
       Elektrotehnički fakultet Univerziteta u Beogradu
+    </footer>
+  </div>
+  <div v-else>
+    <nav id="main">
+      <router-link to="/">
+        <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/')">
+      </router-link>&emsp; 
+      <router-link to="/">Main - L&P gallery</router-link> |
+      <router-link to="/onama">About us</router-link>&emsp;
+      <PretragaComponentEn></PretragaComponentEn>&emsp;
+      <router-link to="/umetnici">Artists</router-link> |
+      <div class="dropdown">
+        <span class="dropdown-label">Workarts</span>
+        <div class="dropdown-content">
+          <router-link to="/umetnine/slike">Images</router-link>
+          <router-link to="/umetnine/skulpture">Sculptures</router-link>
+          <router-link to="/umetnine/moda">Fashion</router-link>
+        </div>
+      </div> |
+      <router-link to="/mojprofil">My profile</router-link>&emsp;
+      <button class="btn btn-outline-dark" @click="prebaci()">Switch to Serbian</button>
+    </nav>
+    <router-view/>
+    <footer>
+      © Copyright 2023
+      <br>
+      Authors: Predrag Pešić, Luka Nevajda
+      <br>
+      Department of Software Engineering
+      <br>
+      Faculty of Electrical Engineering, University of Belgrade
     </footer>
   </div>
 </template>
@@ -110,11 +142,35 @@
 
 <script>
 import PretragaComponent from './components/PretragaComponent.vue'
+import PretragaComponentEn from './components/PretragaComponentEn.vue'
 
 export default {
   name: "App",
+  data() {
+    return {
+      jezik: ''
+    }
+  },
+  created() {
+    if (localStorage.getItem("jezik") == null) {
+      this.jezik = 'srpski';
+      localStorage.setItem("jezik", this.jezik);
+    }
+    else {
+      this.jezik = localStorage.getItem("jezik");
+    }
+  },
   components: {
-    PretragaComponent
+    PretragaComponent,
+    PretragaComponentEn
+  },
+  methods: {
+    prebaci() {
+      if (this.jezik == 'srpski') this.jezik = 'engleski';
+      else this.jezik = 'srpski';
+      localStorage.setItem("jezik", this.jezik);
+      console.log(this.$route.path);
+    }
   }
 }
 </script>

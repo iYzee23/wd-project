@@ -183,7 +183,6 @@ export default {
   },
   created(){
         var artistId=Number(this.$route.params.id)
-        //console.log(artistId)
         this.artist=this.artists.find(artist=>artist.artist_id==artistId)
         this.showModal=false;
         this.loggedInUserId=localStorage.getItem('user');
@@ -204,13 +203,13 @@ export default {
         }
         for(let i=0;i<allSculptures.length;i++){
             if(allSculptures[i].sculpture_author==this.artist.artist_name){
-                pdf.text(allImages[i].sculpture_name,10,cursor)
+                pdf.text(allSculptures[i].sculpture_name,10,cursor)
                 cursor *= 10
             }
         }
         for(let i=0;i<allCreations.length;i++){
             if(allCreations[i].creation_author==this.artist.artist_name){
-                pdf.text(allImages[i].creation_name,10,cursor)
+                pdf.text(allCreations[i].creation_name,10,cursor)
                 cursor *= 10
             }
         }

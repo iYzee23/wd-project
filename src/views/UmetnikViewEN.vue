@@ -3,7 +3,7 @@
         <div class="breadcrumb-div">
             <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/artists">Artists</a></li>
+                <li class="breadcrumb-item"><a href="/EN/umetnici">Artists</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{artist.artist_name}}</li>
             </ol>
             </nav>
@@ -13,14 +13,14 @@
                 <div class="modal-background"></div>
                 <div class="modal-content">
                     <div class="box">
-                        <h3 class="title">Adding a comment</h3>
+                        <h3 class="title">Place a comment</h3>
                         <form @submit.prevent="submitComment">
                             <label class="label">Comment:</label>
                             <br>
                             <textarea class="textarea" v-model="commentContent"></textarea>
                             <br>
-                            <button type="submit" class="btn btn-outline-secondary">Add</button>
-                            <button type="button" class="btn btn-outline-secondary" @click="closeModal()">Cancel</button>
+                            <button type="submit" class="btn btn-outline-secondary">Place</button>
+                            <button type="button" class="btn btn-outline-secondary" @click="closeModal()">Close</button>
                         </form>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="left-div down-left">
                         <br>
-                        For more information about this artist click
+                        For mor info about artist click
                         <a :href="artist.artist_wiki" target="_blank">here</a>
                 </div>
             </div>
@@ -53,8 +53,8 @@
             <div class="right-divs">
                 <div class="right-div">
                     <h2>Comments</h2>  
-                    <div class="button-container" v-if="loggedInUserId!=''">
-                        <button type="button" class="btn btn-outline-secondary" @click="openModal">Add a comment</button>
+                    <div class="button-container" v-if="loggedInUserId">
+                        <button type="button" class="btn btn-outline-secondary" @click="openModal">Place a comment</button>
                     </div>
                     <div id="commentContainer" class="comment-container" ref="commentContainer">
                         <br>
@@ -69,7 +69,7 @@
                 <div class="right-div down-right">
                     <!-- Content for the second smaller div goes here -->
                     <h2>Artworks</h2>
-                    <button type="button" class="btn btn-outline-secondary download" @click="downloadPDF">List of artworks</button>
+                    <button type="button" class="btn btn-outline-secondary download" @click="downloadPDF">An overview of the work</button>
                 </div>
             </div>
         </div>
@@ -108,7 +108,7 @@
       border: 5px solid #C4A484;
       text-align: left;
       color:plum;
-      height: 58%;
+      height: 48%;
     }
     .down-right{
         height: 130px;
@@ -121,7 +121,7 @@
         margin-left: 10px;
     }
     .comment-container{
-        height: 84%;
+        height: 74%;
         overflow-y: auto;
     }
     .comment{
@@ -162,11 +162,12 @@
 </style>
 
 <script>
-import allArtists from '../data/allArtists.js'
-import allImages from '../data/allImages.js'
-import allSculptures from '../data/allSculptures.js'
-import allCreations from '../data/allCreations.js'
+import allArtistsEn from '../data/allArtistsEn.js'
+import allImagesEn from '../data/allImagesEn.js'
+import allSculpturesEn from '../data/allSculpturesEn.js'
+import allCreationsEn from '../data/allCreationsEn.js'
 import jsPDF from 'jspdf'
+
 export default {
   data() {
     return {
@@ -174,41 +175,41 @@ export default {
       comments: [], 
       commentContent:'',
       loggedInUserId: '',
-      artists: allArtists,
-      allImages:allImages,
-      allSculptures:allSculptures,
-      allCreations:allCreations
+      artists: allArtistsEn,
+      allImages: allImagesEn,
+      allSculptures: allSculpturesEn,
+      allCreations: allCreationsEn
     };
   },
   created(){
         var artistId=Number(this.$route.params.id)
-        //console.log(artistId)
         this.artist=this.artists.find(artist=>artist.artist_id==artistId)
         this.showModal=false;
-        this.loggedInUserId=Number(localStorage.getItem('user'))
+        this.loggedInUserId=localStorage.getItem('user');
   },
   mounted() {
     this.fetchComments();
+    document.title = 'L&P gallery - Artist';
   },
   methods: {
     downloadPDF(){
         var pdf=new jsPDF();
         let cursor=10;
-        for(let i=0;i<allImages.length;i++){
-            if(allImages[i].image_author==this.artist.artist_name){
-                pdf.text(allImages[i].image_name,10,cursor)
+        for(let i=0;i<allImagesEn.length;i++){
+            if(allImagesEn[i].image_author==this.artist.artist_name){
+                pdf.text(allImagesEn[i].image_name,10,cursor)
                 cursor *= 10
             }
         }
-        for(let i=0;i<allSculptures.length;i++){
-            if(allSculptures[i].sculpture_author==this.artist.artist_name){
-                pdf.text(allImages[i].sculpture_name,10,cursor)
+        for(let i=0;i<allSculpturesEn.length;i++){
+            if(allSculpturesEn[i].sculpture_author==this.artist.artist_name){
+                pdf.text(allSculpturesEn[i].sculpture_name,10,cursor)
                 cursor *= 10
             }
         }
-        for(let i=0;i<allCreations.length;i++){
-            if(allCreations[i].creation_author==this.artist.artist_name){
-                pdf.text(allImages[i].creation_name,10,cursor)
+        for(let i=0;i<allCreationsEn.length;i++){
+            if(allCreationsEn[i].creation_author==this.artist.artist_name){
+                pdf.text(allCreationsEn[i].creation_name,10,cursor)
                 cursor *= 10
             }
         }
@@ -221,11 +222,14 @@ export default {
       
     },
     deleteComment(commentId) {
-      const commentIndex = this.comments.findIndex(comment => comment.id === commentId);
-      if (commentIndex !== -1) {
-        this.comments.splice(commentIndex, 1);
-        localStorage.setItem('allComments', JSON.stringify(this.comments));
-      }
+        let allComments = JSON.parse(localStorage.getItem('allComments'));
+        const commentIndex = this.comments.findIndex(comment => comment.id === commentId);
+        const allCommentIndex = allComments.findIndex(comment => comment.id === commentId);
+        if (commentIndex !== -1) {
+            this.comments.splice(commentIndex, 1);
+            allComments.splice(allCommentIndex, 1);
+            localStorage.setItem('allComments', JSON.stringify(allComments));
+        }
     },
     openModal() {
       this.showModal = true;
@@ -234,22 +238,20 @@ export default {
       this.showModal = false;
     },
     submitComment() {
-      
-      let last_id = this.comments[this.comments.length - 1].id;
-      const newComment = {
-        id:last_id+1,
-        userId:this.loggedInUserId,
-        content: this.commentContent,
-        artist_id: Number.parseInt(this.$route.params.id)
-      };
-      this.comments.push(newComment);
-      localStorage.setItem('allComments', JSON.stringify(this.comments));
-
-      
-      // Ciscenje commentContent
-      this.commentContent = '';
-
-      this.closeModal();
+        let allComments = JSON.parse(localStorage.getItem('allComments'));
+        let last_id = allComments[allComments.length - 1].id;
+        const newComment = {
+            id:last_id+1,
+            userId:this.loggedInUserId,
+            content: this.commentContent,
+            artist_id: Number.parseInt(this.$route.params.id)
+        };
+        this.comments.push(newComment);
+        allComments.push(newComment);
+        localStorage.setItem('allComments', JSON.stringify(allComments));
+        // Ciscenje commentContent
+        this.commentContent = '';
+        this.closeModal();
     }
   }
 };

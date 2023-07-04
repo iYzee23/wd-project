@@ -32,22 +32,22 @@
   </div>
   <div v-else>
     <nav id="main">
-      <router-link to="/">
-        <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/')">
+      <router-link to="/EN/">
+        <img id="logoSlika" alt="Logo" src="./assets/logoAssassin.png" @click="$router.push('/EN/')">
       </router-link>&emsp; 
-      <router-link to="/">Main - L&P gallery</router-link> |
-      <router-link to="/onama">About us</router-link>&emsp;
+      <router-link to="/EN/">Main - L&P gallery</router-link> |
+      <router-link to="/EN/onama">About us</router-link>&emsp;
       <PretragaComponentEn></PretragaComponentEn>&emsp;
-      <router-link to="/umetnici">Artists</router-link> |
+      <router-link to="/EN/umetnici">Artists</router-link> |
       <div class="dropdown">
         <span class="dropdown-label">Workarts</span>
         <div class="dropdown-content">
-          <router-link to="/umetnine/slike">Images</router-link>
-          <router-link to="/umetnine/skulpture">Sculptures</router-link>
-          <router-link to="/umetnine/moda">Fashion</router-link>
+          <router-link to="/EN/umetnine/slike">Images</router-link>
+          <router-link to="/EN/umetnine/skulpture">Sculptures</router-link>
+          <router-link to="/EN/umetnine/moda">Fashion</router-link>
         </div>
       </div> |
-      <router-link to="/mojprofil">My profile</router-link>&emsp;
+      <router-link to="/EN/mojprofil">My profile</router-link>&emsp;
       <button class="btn btn-outline-dark" @click="prebaci()">Switch to Serbian</button>
     </nav>
     <router-view/>
@@ -166,10 +166,15 @@ export default {
   },
   methods: {
     prebaci() {
-      if (this.jezik == 'srpski') this.jezik = 'engleski';
-      else this.jezik = 'srpski';
+      if (this.jezik == 'srpski') {
+        this.jezik = 'engleski';
+        this.$router.push("/EN" + this.$route.path);
+      }
+      else {
+        this.jezik = 'srpski';
+        this.$router.push(this.$route.path.substring(3));
+      }
       localStorage.setItem("jezik", this.jezik);
-      console.log(this.$route.path);
     }
   }
 }

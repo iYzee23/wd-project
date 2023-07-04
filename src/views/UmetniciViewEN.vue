@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ artist.artist_name }}</h5>
                         <p class="card-text">{{ artist.artist_short_biography }}</p>
-                        <a :href="'/umetnik/'+artist.artist_id" class="btn btn-outline-danger">Visit artist's profile</a>
+                        <a :href="'/EN/umetnik/'+artist.artist_id" class="btn btn-outline-danger">Visit artist's profile</a>
                     </div>
                 </div>
             </div>
@@ -40,12 +40,15 @@
 </style>
 
 <script>
-import allArtists from '../data/allArtists.js'
+import allArtistsEn from '../data/allArtistsEn.js'
 export default {
   data() {
     return {
-      artists: allArtists
+      artists: allArtistsEn
     };
+  },
+  mounted() {
+    document.title = 'L&P gallery - Artists';
   }
 };
 </script>

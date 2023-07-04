@@ -62,13 +62,13 @@
 
 
 <script>
-import allArtists from "@/data/allArtists";
-import allCreations from "@/data/allCreations";
-import allSculptures from "@/data/allSculptures";
-import allImages from "@/data/allImages";
-import jsPDF from 'jspdf';
+import allArtistsEn from "@/data/allArtistsEn";
+import allCreationsEn from "@/data/allCreationsEn";
+import allSculpturesEn from "@/data/allSculpturesEn";
+import allImagesEn from "@/data/allImagesEn";
+
 export default {
-  name: "MojProfil",
+  name: "MojProfilEN",
   data() {
     return {
       user: "",
@@ -76,18 +76,21 @@ export default {
       allUsersSlikePonude: [],
       allUsersSkulpturePonude: [],
       allUsersKreacijePonude:[],
-      allArtists: allArtists,
-      allImages:allImages,
-      allSculptures:allSculptures,
-      allCreations:allCreations
+      allArtists: allArtistsEn,
+      allImages: allImagesEn,
+      allSculptures: allSculpturesEn,
+      allCreations: allCreationsEn
     };
+  },
+  mounted() {
+    document.title = 'L&P gallery - My profile';
   },
   created() {
     if (
       localStorage.getItem("user") == null ||
       localStorage.getItem("user") == ""
     ) {
-      this.$router.push("/login");
+      this.$router.push("/EN/login");
     }
     this.user = localStorage.getItem("user");
     this.allUsersComments=JSON.parse(localStorage.getItem('allComments')).filter((c)=>{return c.userId == this.user})
@@ -135,7 +138,7 @@ export default {
     },
     logout(){
         localStorage.setItem('user','')
-        this.$router.push('/')
+        this.$router.push('/EN/')
     }
   }
 };

@@ -12,7 +12,7 @@
                     </tr>
                     <tr>
                         <td>Password: </td>
-                        <td><input type="text" name="password" v-model="password"></td>
+                        <td><input type="password" name="password" v-model="password"></td>
                     </tr>
                     <tr>
                         <td colspan="2">

@@ -177,8 +177,7 @@
     }
 
     img {
-      width: 250px;
-      height: 100%;
+      width: 100%;
     }
 
     .carousel {
